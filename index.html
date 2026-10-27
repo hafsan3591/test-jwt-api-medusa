@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080b12">
+<title>MEDUSA • Free Fire JWT Studio</title>
+<style>
+:root{--bg:#080b12;--panel:#101725;--line:#27354a;--text:#f4f7ff;--muted:#9ba9bd;--green:#b7ff38;--cyan:#45e6ff;--red:#ff667a}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:radial-gradient(ellipse at 12% 0%,#15303b 0,transparent 35%),radial-gradient(ellipse at 100% 30%,#25204b 0,transparent 30%),var(--bg)}
+.wrap{width:min(960px,92%);margin:auto;padding:28px 0 42px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:32px}.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:1.5px}.logo{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--green);border-radius:13px;color:var(--green);font-size:20px;box-shadow:0 0 24px #b7ff3820}.badge{font-size:12px;color:var(--green);border:1px solid #b7ff3855;border-radius:99px;padding:7px 11px}
+.hero{text-align:center;margin:20px 0 30px}.eyebrow{font-size:12px;letter-spacing:3px;color:var(--cyan);font-weight:800}.hero h1{font-size:clamp(30px,6vw,54px);line-height:1.08;margin:13px 0;background:linear-gradient(90deg,#fff,var(--green),var(--cyan));background-clip:text;-webkit-background-clip:text;color:transparent}.hero p{color:var(--muted);max-width:600px;margin:0 auto;line-height:1.65}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.card{background:linear-gradient(150deg,#131d2d,#0c111c);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 18px 55px #0005}.card h2{font-size:18px;margin:0 0 6px}.sub{font-size:13px;color:var(--muted);margin:0 0 22px;line-height:1.5}label{display:block;font-size:13px;color:#dce5f5;margin:15px 0 8px}input{width:100%;border:1px solid #34445b;background:#080e18;color:white;border-radius:11px;padding:13px 14px;font-size:15px;outline:none}input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #45e6ff17}.hint{font-size:11px;color:var(--muted);line-height:1.5;margin-top:7px}.btn{width:100%;margin-top:20px;border:0;border-radius:11px;background:var(--green);color:#10150a;font-weight:900;font-size:15px;padding:14px;cursor:pointer;transition:.15s}.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}.btn:disabled{opacity:.55;cursor:wait;transform:none}.status{margin-top:13px;font-size:13px;line-height:1.5;color:var(--muted);min-height:20px}.resultbox{margin-top:15px;border:1px solid var(--line);background:#070c14;border-radius:12px;padding:13px;display:none}.resulttop{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.pill{font-size:11px;color:var(--green);border:1px solid #b7ff3844;border-radius:99px;padding:4px 8px}.token{font-family:ui-monospace,SFMono-Regular,monospace;font-size:12px;color:#d6e5fa;word-break:break-all;line-height:1.6;max-height:170px;overflow:auto}.copy{border:1px solid #3a4b61;color:white;background:#172234;padding:7px 10px;border-radius:8px;cursor:pointer;font-size:12px}.output{white-space:pre-wrap;word-break:break-word;color:#dce5f5;font:12px/1.6 ui-monospace,monospace;max-height:230px;overflow:auto}.warning{margin-top:18px;padding:13px 15px;border:1px solid #f4b94255;background:#f4b9420c;border-radius:12px;color:#e5d2a8;font-size:12px;line-height:1.6}.footer{text-align:center;color:#738199;font-size:12px;margin-top:24px;line-height:1.7}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.wrap{padding-top:18px}.card{padding:20px}.top{margin-bottom:25px}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="top"><div class="brand"><div class="logo">M</div><div>MEDUSA <span style="color:var(--green)">STUDIO</span></div></div><span class="badge">● API INTERFACE</span></header>
+<section class="hero"><div class="eyebrow">FREE FIRE • DEVELOPER TOOL</div><h1>JWT TOKEN GENERATOR</h1><p>নিজের Free Fire guest account-এর credentials দিয়ে backend API-তে অনুরোধ পাঠাও এবং response দেখো।</p></section>
+<div class="grid">
+<section class="card"><h2>Generate Token</h2><p class="sub">আগে নিজের backend URL বসাও। Credentials URL query-তে নয়, POST body-তে পাঠানো হবে।</p>
+<label for="api">Backend API URL</label><input id="api" type="url" placeholder="https://your-api.onrender.com" autocomplete="url"><div class="hint">Render URL লিখবে—শেষে /api/token লিখতে হবে না। URL এই ব্রাউজারে মনে রাখা হবে; UID/password সংরক্ষণ করা হয় না।</div>
+<label for="uid">Guest UID</label><input id="uid" inputmode="numeric" placeholder="তোমার guest UID" autocomplete="off">
+<label for="password">Guest Password</label><input id="password" type="password" placeholder="Guest password" autocomplete="off">
+<button class="btn" id="go">⚡ GENERATE JWT</button><div id="status" class="status" role="status"></div>
+<div id="resultbox" class="resultbox"><div class="resulttop"><strong style="font-size:13px">Token</strong><button class="copy" id="copy">Copy token</button></div><div id="token" class="token"></div></div>
+</section>
+<section class="card"><h2>API Response</h2><p class="sub">Backend থেকে পাওয়া সম্পূর্ণ response এখানে দেখা যাবে।</p><div id="response" class="output">এখনো কোনো request পাঠানো হয়নি।</div>
+<div class="warning"><strong>সতর্কতা:</strong> শুধু নিজের account ব্যবহার করো। অচেনা/অবিশ্বস্ত backend-এ credentials পাঠিও না। এই পেজ credentials সংরক্ষণ করে না, তবে তোমার backend ও hosting provider request process করতে পারে।</div>
+<div class="hint" style="margin-top:16px">API error হলে backend-এর CORS settings, Render deployment status এবং /api/token endpoint পরীক্ষা করো।</div>
+</section></div>
+<div class="footer">MEDUSA STUDIO • Unofficial community tool, not affiliated with Garena.<br>API compatibility depends on the backend and current game version.</div>
+</main>
+<script>
+const apiInput=document.getElementById('api'), uidInput=document.getElementById('uid'), passInput=document.getElementById('password');
+const statusEl=document.getElementById('status'), responseEl=document.getElementById('response'), resultBox=document.getElementById('resultbox'), tokenEl=document.getElementById('token'), go=document.getElementById('go');
+apiInput.value=localStorage.getItem('medusa_backend_url')||'';
+apiInput.addEventListener('change',()=>localStorage.setItem('medusa_backend_url',apiInput.value.trim().replace(/\/+$/,'')));
+function findToken(obj){if(!obj||typeof obj!=='object')return null;if(typeof obj.token==='string')return obj.token;for(const v of Object.values(obj)){const t=findToken(v);if(t)return t}return null}
+go.addEventListener('click',async()=>{
+ const base=apiInput.value.trim().replace(/\/+$/,''),uid=uidInput.value.trim(),password=passInput.value.trim();
+ statusEl.style.color='var(--muted)';resultBox.style.display='none';
+ if(!/^https?:\/\//i.test(base)){statusEl.textContent='প্রথমে valid backend URL বসাও।';return}
+ if(!uid||!password){statusEl.textContent='UID এবং guest password দুটোই দাও।';return}
+ if(!/^\d+$/.test(uid)){statusEl.textContent='UID-তে শুধু সংখ্যা ব্যবহার করো।';return}
+ go.disabled=true;go.textContent='PLEASE WAIT…';statusEl.textContent='Backend-এ request পাঠানো হচ্ছে…';responseEl.textContent='Loading…';
+ try{
+  const res=await fetch(base+'/api/token',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({uid,password})});
+  const raw=await res.text();let data;try{data=JSON.parse(raw)}catch{data={raw_response:raw}}
+  responseEl.textContent=JSON.stringify(data,null,2);
+  const token=findToken(data);
+  if(!res.ok){statusEl.style.color='var(--red)';statusEl.textContent='API error: HTTP '+res.status+' — response দেখো।'}
+  else if(token){tokenEl.textContent=token;resultBox.style.display='block';statusEl.style.color='var(--green)';statusEl.textContent='Response পাওয়া গেছে। Token field পাওয়া গেছে।'}
+  else{statusEl.style.color='#f4b942';statusEl.textContent='Response এসেছে, কিন্তু token field পাওয়া যায়নি।'}
+ }catch(e){responseEl.textContent=String(e);statusEl.style.color='var(--red)';statusEl.textContent='Request ব্যর্থ। Backend চালু আছে কি না এবং CORS অনুমতি আছে কি না দেখো।'}
+ finally{go.disabled=false;go.textContent='⚡ GENERATE JWT';passInput.value=''}
+});
+document.getElementById('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(tokenEl.textContent);document.getElementById('copy').textContent='Copied!';setTimeout(()=>document.getElementById('copy').textContent='Copy token',1200)}catch{statusEl.textContent='Copy করতে পারেনি—token long-press করে copy করো।'}});
+</script></body></html>
